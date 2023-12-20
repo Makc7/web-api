@@ -1,40 +1,55 @@
 ﻿using Contracts;
 using Entities;
-using Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Contracts.Contracts;
 
-public class RepositoryManager : IRepositoryManager
+namespace Repository
 {
-    private RepositoryContext _repositoryContext;
-    private ICompanyRepository _companyRepository;
-    private IEmployeeRepository _employeeRepository;
-    public RepositoryManager(RepositoryContext repositoryContext)
+    public class RepositoryManager : IRepositoryManager
     {
-        _repositoryContext = repositoryContext;
-    }
-    public ICompanyRepository Company
-    {
-        get
+        private RepositoryContext _repositoryContext;
+        private ICompanyRepository _companyRepository;
+        private IEmployeeRepository _employeeRepository;
+        private IPlaneRepository _carRepository;
+        private IPilotRepository _driverRepository;
+        public RepositoryManager(RepositoryContext repositoryContext)
         {
-            if (_companyRepository == null)
-                _companyRepository = new CompanyRepository(_repositoryContext);
-            return _companyRepository;
+            _repositoryContext = repositoryContext;
         }
-    }
-    public IEmployeeRepository Employee
-    {
-        get
+        public ICompanyRepository Company
         {
-            
-        if (_employeeRepository == null)
-                _employeeRepository = new EmployeeRepository(_repositoryContext);
-            return _employeeRepository;
+            get
+            {
+                if (_companyRepository == null)
+                    _companyRepository = new CompanyRepository(_repositoryContext);
+                return _companyRepository;
+            }
         }
+        public IEmployeeRepository Employee
+        {
+            get
+            {
+                if (_employeeRepository == null)
+                    _employeeRepository = new EmployeeRepository(_repositoryContext);
+                return _employeeRepository;
+            }
+        }
+        public IPlaneRepository Plane
+        {
+            get
+            {
+                if (_carRepository == null)
+                    _carRepository = new PlaneRepository(_repositoryContext);
+                return _carRepository;
+            }
+        }
+        public IPilotRepository Pilot
+        {
+            get
+            {
+                if (_driverRepository == null)
+                    _driverRepository = new PilotRepository(_repositoryContext);
+                return _driverRepository;
+            }
+        }
+        public void Save() => _repositoryContext.SaveChanges();
     }
-    public void Save() => _repositoryContext.SaveChanges();
 }
