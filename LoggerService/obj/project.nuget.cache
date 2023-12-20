@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4SBhVr8kceARmgeEjAvwZvfxo6dGt9eB1RT8ABvfjQzosi+HnkAe9wtKLkFB204e5QXnNgDG+Sz5pp9C4eV3ww==",
+  "dgSpecHash": "cCQjFuaPXtBUmMOiWvb2N5Pb1b+PHdOCe069HP1oWSBjD+Tp54/c/pB1+4JXewfIbJiBq0FEM88nhrFrd7nK5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab6\\LoggerService\\LoggerService.csproj",
+  "projectFilePath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab7\\LoggerService\\LoggerService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxim\\.nuget\\packages\\microsoft.csharp\\4.3.0\\microsoft.csharp.4.3.0.nupkg.sha512",
     "C:\\Users\\maxim\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.11\\microsoft.entityframeworkcore.7.0.11.nupkg.sha512",
