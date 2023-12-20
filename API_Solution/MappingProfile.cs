@@ -12,6 +12,10 @@ namespace API_Solution
             CreateMap<Employee, EmployeeDto>();
             CreateMap<Plane, PlaneDto>();
             CreateMap<Pilot, PilotDto>();
+            CreateMap<CompanyForCreationDto, Company>();
+            CreateMap<EmployeeForCreationDto, Employee>();
+            CreateMap<PilotForCreatonDto, Pilot>();
+            CreateMap<PlaneForCreationDto, Plane>();
         }
     }
 }

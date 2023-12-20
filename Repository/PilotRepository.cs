@@ -11,7 +11,9 @@ namespace Repository
         {
         }
 
-        public IEnumerable<Pilot> GetAllPilot(bool trackChanges) => FindAll(trackChanges).OrderBy(c => c.Name).ToList();
-        public Pilot GetPilot(Guid id, bool trackChanges) => FindByCondition(c => c.Id.Equals(id), trackChanges).SingleOrDefault(); 
+        public IEnumerable<Pilot> GetAllPilots(bool trackChanges) => FindAll(trackChanges).OrderBy(c => c.Name).ToList();
+        public Pilot GetPilot(Guid id, bool trackChanges) => FindByCondition(c => c.Id.Equals(id), trackChanges).SingleOrDefault();
+        public void CreatePilot(Pilot driver) => Create(driver);
+        public IEnumerable<Pilot> GetByIds(IEnumerable<Guid> ids, bool trackChanges) => FindByCondition(x => ids.Contains(x.Id), trackChanges).ToList();
     }
 }

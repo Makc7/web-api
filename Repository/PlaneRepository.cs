@@ -11,9 +11,14 @@ namespace Repository
         {
         }
 
-        public IEnumerable<Plane> GetCars(Guid pilotId, bool trackChanges) => 
-            FindByCondition(c => c.pilotId.Equals(pilotId), trackChanges).OrderBy(e => e.Brend);
-        public Plane GetCarById(Guid pilotId, Guid id, bool trackChanges) => FindByCondition(c => c.PilotId.Equals(pilotId) &&
+        public IEnumerable<Plane> GetPlanes(Guid driverId, bool trackChanges) => 
+            FindByCondition(c => c.PilotId.Equals(driverId), trackChanges).OrderBy(e => e.Brend);
+        public Plane GetPlaneById(Guid driverId, Guid id, bool trackChanges) => FindByCondition(c => c.PilotId.Equals(driverId) &&
             c.Id.Equals(id), trackChanges).SingleOrDefault();
+        public void CreatePlaneForPilot(Guid driverId, Plane plane)
+        {
+            plane.PilotId = driverId;
+            Create(plane);
+        }
     }
 }

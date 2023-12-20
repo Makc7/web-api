@@ -8,8 +8,8 @@ namespace Repository
         private RepositoryContext _repositoryContext;
         private ICompanyRepository _companyRepository;
         private IEmployeeRepository _employeeRepository;
-        private ICarRepository _carRepository;
-        private IDriverRepository _driverRepository;
+        private IPlaneRepository _planeRepository;
+        private IPilotRepository _driverRepository;
         public RepositoryManager(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -32,16 +32,16 @@ namespace Repository
                 return _employeeRepository;
             }
         }
-        public ICarRepository Car
+        public IPlaneRepository Plane
         {
             get
             {
-                if (_carRepository == null)
-                    _carRepository = new PlaneRepository(_repositoryContext);
-                return _carRepository;
+                if (_planeRepository == null)
+                    _planeRepository = new PlaneRepository(_repositoryContext);
+                return _planeRepository;
             }
         }
-        public IDriverRepository Driver
+        public IPilotRepository Pilot
         {
             get
             {
