@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BCv0/+JGM127Pm/5VuGxiqhLI9TyL4eZQ4q0HuzwpNQtmWGUGIYDoliNSk16TrnhMa/5s8uPwBXaCucHeAbX0g==",
+  "dgSpecHash": "wOaeeilxbl7t7LKjYXFiD/YMVvKeTzPWAqBb2zEsU4Z+zh0IB5COIhlyy88SaLAz8LBbHNpAr45HRRDZuOUcgw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab11\\LoggerService\\LoggerService.csproj",
+  "projectFilePath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab12\\LoggerService\\LoggerService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxim\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.22\\microsoft.aspnetcore.cryptography.internal.6.0.22.nupkg.sha512",
     "C:\\Users\\maxim\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.22\\microsoft.aspnetcore.cryptography.keyderivation.6.0.22.nupkg.sha512",

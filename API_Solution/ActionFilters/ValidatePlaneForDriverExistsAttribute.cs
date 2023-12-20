@@ -19,16 +19,16 @@ namespace API_Solution.ActionFilters
         {
             var method = context.HttpContext.Request.Method;
             var trackChanges = (method.Equals("PUT") || method.Equals("PATCH")) ? true : false;
-            var pilotId = (Guid)context.ActionArguments["pilotId"];
-            var pilot = await _repository.Pilot.GetPilotAsync(pilotId, false);
-            if (pilot == null)
+            var driverId = (Guid)context.ActionArguments["driverId"];
+            var driver = await _repository.Pilot.GetPilotAsync(driverId, false);
+            if (driver == null)
             {
-                _logger.LogInfo($"Company with id: {pilotId} doesn't exist in the database.");
+                _logger.LogInfo($"Company with id: {driverId} doesn't exist in the database.");
                 return;
                 context.Result = new NotFoundResult();
             }
             var id = (Guid)context.ActionArguments["id"];
-            var plane = await _repository.Plane.GetPlaneByIdAsync(pilotId, id, trackChanges);
+            var plane = await _repository.Plane.GetPlaneByIdAsync(driverId, id, trackChanges);
             if (plane == null)
             {
                 _logger.LogInfo($"Plane with id: {id} doesn't exist in the database.");

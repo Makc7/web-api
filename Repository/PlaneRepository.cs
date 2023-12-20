@@ -14,16 +14,16 @@ namespace Repository
         {
         }
 
-        public async Task<PagedList<Plane>> GetPlanesAsync(Guid pilotId, PlaneParameters planeParameters, bool trackChanges)
+        public async Task<PagedList<Plane>> GetPlanesAsync(Guid driverId, PlaneParameters planeParameters, bool trackChanges)
         {
-            var planes = await FindByCondition(c => c.PilotId.Equals(pilotId), trackChanges).Search(planeParameters.SearchTerm).Sort(planeParameters.OrderBy).ToListAsync();
+            var planes = await FindByCondition(c => c.PilotId.Equals(driverId), trackChanges).Search(planeParameters.SearchTerm).Sort(planeParameters.OrderBy).ToListAsync();
             return PagedList<Plane>.ToPagedList(planes, planeParameters.PageNumber, planeParameters.PageSize);
         }
-        public async Task<Plane> GetPlaneByIdAsync(Guid pilotId, Guid id, bool trackChanges) => await FindByCondition(c => c.PilotId.Equals(pilotId) &&
+        public async Task<Plane> GetPlaneByIdAsync(Guid driverId, Guid id, bool trackChanges) => await FindByCondition(c => c.PilotId.Equals(driverId) &&
             c.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
-        public void CreatePlaneForPilot(Guid pilotId, Plane plane)
+        public void CreatePlaneForPilot(Guid driverId, Plane plane)
         {
-            plane.PilotId = pilotId;
+            plane.PilotId = driverId;
             Create(plane);
         }
         public void DeletePlane(Plane plane) => Delete(plane);

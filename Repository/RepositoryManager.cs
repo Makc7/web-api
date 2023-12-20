@@ -9,7 +9,7 @@ namespace Repository
         private ICompanyRepository _companyRepository;
         private IEmployeeRepository _employeeRepository;
         private IPlaneRepository _planeRepository;
-        private IPilotRepository _pilotRepository;
+        private IPilotRepository _driverRepository;
         public RepositoryManager(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -45,9 +45,9 @@ namespace Repository
         {
             get
             {
-                if (_pilotRepository == null)
-                    _pilotRepository = new PilotRepository(_repositoryContext);
-                return _pilotRepository;
+                if (_driverRepository == null)
+                    _driverRepository = new PilotRepository(_repositoryContext);
+                return _driverRepository;
             }
         }
         public Task SaveAsync() => _repositoryContext.SaveChangesAsync();

@@ -1,10 +1,13 @@
 ﻿using Entities.Models;
+using Entities.RequestFeatures;
 
 namespace Contracts
 {
     public interface IPlaneRepository
     {
-        IEnumerable<Plane> GetPlanes(Guid driverId, bool trackChanges);
-        Plane GetPlaneById(Guid driverId, Guid planeId, bool trackChanges);
+        Task<PagedList<Plane>> GetPlanesAsync(Guid driverId, PlaneParameters planeParameters, bool trackChanges);
+        Task<Plane> GetPlaneByIdAsync(Guid driverId, Guid planeId, bool trackChanges);
+        void CreatePlaneForPilot(Guid driverId, Plane plane);
+        void DeletePlane(Plane plane);
     }
 }

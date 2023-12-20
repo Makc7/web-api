@@ -1,4 +1,7 @@
-﻿using API_Solution.ActionFilters;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using API_Solution.ActionFilters;
 using API_Solution.ModelBinders;
 using AutoMapper;
 using Contracts;
@@ -12,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace API_Solution.Controllers
 {
-    [Route("api/pilots/{pilotId}/planes")]
+    [Route("api/drivers/{driverId}/planes")]
     [ApiController]
     public class PlanesController : ControllerBase
     {
@@ -29,32 +32,44 @@ namespace API_Solution.Controllers
             _dataShaper = dataShaper;
         }
 
+        /// <summary>
+        /// Получает список всех машин для определенного водителя
+        /// </summary>
+        /// <param name="driverId">Id водителя</param>
+        /// <param name="planeParameters">Параметры для частичных результатов запроса</param>
+        /// <returns></returns>
         [HttpGet]
         [HttpHead]
-        public async Task<ActionResult> GetPlanesWithHelpPilor(Guid pilotId, [FromQuery] PlaneParameters planeParameters)
+        public async Task<ActionResult> GetPlanesWithHelpPilot(Guid driverId, [FromQuery] PlaneParameters planeParameters)
         {
-            var pilot = await _repository.Pilor.GetPilorAsync(pilotId, trackChanges: false);
-            if(pilot == null)
+            var driver = await _repository.Pilot.GetPilotAsync(driverId, trackChanges: false);
+            if(driver == null)
             {
-                _logger.LogInfo($"Pilor with id: {pilotId} doesn't exist in the database.");
+                _logger.LogInfo($"Pilot with id: {driverId} doesn't exist in the database.");
                 return NotFound();
             }
-            var planesFromDB = await _repository.Plane.GetPlanesAsync(pilotId, planeParameters, trackChanges: false);
+            var planesFromDB = await _repository.Plane.GetPlanesAsync(driverId, planeParameters, trackChanges: false);
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(planesFromDB.MetaData));
             var planesDto = _mapper.Map<IEnumerable<PlaneDto>>(planesFromDB);
             return Ok(_dataShaper.ShapeData(planesDto, planeParameters.Fields));
         }
 
-        [HttpGet("{id}", Name = "GetPlaneForPilor")]
-        public async Task<ActionResult> GetPlaneWithHelpPilor(Guid pilotId, Guid id)
+        /// <summary>
+        /// Получает определенную машину для определенного водителя
+        /// </summary>
+        /// <param name="driverId">Id водителя</param>
+        /// <param name="id">Id машины которую хотим получить</param>
+        /// <returns></returns>
+        [HttpGet("{id}", Name = "GetPlaneForPilot")]
+        public async Task<ActionResult> GetPlaneWithHelpPilot(Guid driverId, Guid id)
         {
-            var pilot = await _repository.Pilor.GetPilorAsync(pilotId, trackChanges: false);
-            if (pilot == null)
+            var driver = await _repository.Pilot.GetPilotAsync(driverId, trackChanges: false);
+            if (driver == null)
             {
-                _logger.LogInfo($"Pilor with id: {pilotId} doesn't exist in the database.");
+                _logger.LogInfo($"Pilot with id: {driverId} doesn't exist in the database.");
                 return NotFound();
             }
-            var planeDB = await _repository.Plane.GetPlaneByIdAsync(pilotId, id, trackChanges: false);
+            var planeDB = await _repository.Plane.GetPlaneByIdAsync(driverId, id, trackChanges: false);
             if(planeDB == null)
             {
                 _logger.LogInfo($"Plane with id: {id} doesn't exist in the database.");
@@ -64,37 +79,56 @@ namespace API_Solution.Controllers
             return Ok(planeDto);
         }
 
+        /// <summary>
+        /// Создает машину для определенного водителя
+        /// </summary>
+        /// <param name="driverId">Id водителя</param>
+        /// <param name="plane">"Экземпляр новой машины</param>
+        /// <returns></returns>
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> CreatePlaneForPilorAsync(Guid pilotId, [FromBody] PlaneForCreationDto plane)
+        public async Task<IActionResult> CreatePlaneForPilotAsync(Guid driverId, [FromBody] PlaneForCreationDto plane)
         {           
-            var pilot = await _repository.Pilor.GetPilorAsync(pilotId, trackChanges: false);
-            if(pilot == null)
+            var driver = await _repository.Pilot.GetPilotAsync(driverId, trackChanges: false);
+            if(driver == null)
             {
-                _logger.LogInfo($"Pilor with id: {pilotId} doesn't exist in the database.");
+                _logger.LogInfo($"Pilot with id: {driverId} doesn't exist in the database.");
                 return NotFound();
             }
             var planeEntity = _mapper.Map<Plane>(plane);
-            _repository.Plane.CreatePlaneForPilor(pilotId,planeEntity);
+            _repository.Plane.CreatePlaneForPilot(driverId,planeEntity);
             await _repository.SaveAsync();
             var planeToReturn = _mapper.Map<PlaneDto>(planeEntity);
-            return CreatedAtRoute("GetPlaneForPilor", new { pilotId, id = planeToReturn.Id }, planeToReturn);
+            return CreatedAtRoute("GetPlaneForPilot", new { driverId, id = planeToReturn.Id }, planeToReturn);
         }
 
+        /// <summary>
+        /// Удаляет определенную машину для определенного водителя
+        /// </summary>
+        /// <param name="driverId">Id водителя</param>
+        /// <param name="id">Id машины которую хотим удалить</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        [ServiceFilter(typeof(ValidatePlaneForPilorExistsAttribute))]
-        public async Task<IActionResult> DeletePlaneForPilor(Guid pilotId, Guid id) 
+        [ServiceFilter(typeof(ValidatePlaneForPilotExistsAttribute))]
+        public async Task<IActionResult> DeletePlaneForPilot(Guid driverId, Guid id) 
         {
-            var planeForPilor = HttpContext.Items["plane"] as Plane;            
-            _repository.Plane.DeletePlane(planeForPilor);
+            var planeForPilot = HttpContext.Items["plane"] as Plane;            
+            _repository.Plane.DeletePlane(planeForPilot);
             await _repository.SaveAsync();
             return NoContent();
         }
 
+        /// <summary>
+        /// Редактирует определенную машину для определенного водителя
+        /// </summary>
+        /// <param name="driverId">Id водителя</param>
+        /// <param name="id">Id машины которую редактируем</param>
+        /// <param name="plane">Экземпляр редактированной машины</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        [ServiceFilter(typeof(ValidatePlaneForPilorExistsAttribute))]
-        public async Task<IActionResult> UpdatePlaneForPilor(Guid pilotId, Guid id, [FromBody] PlaneForUpdateDto plane)
+        [ServiceFilter(typeof(ValidatePlaneForPilotExistsAttribute))]
+        public async Task<IActionResult> UpdatePlaneForPilot(Guid driverId, Guid id, [FromBody] PlaneForUpdateDto plane)
         {   
             var planeEntity = HttpContext.Items["plane"] as Plane;            
             _mapper.Map(plane, planeEntity);
@@ -102,9 +136,16 @@ namespace API_Solution.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Редактирует определенную машину для определенного водителя
+        /// </summary>
+        /// <param name="driverId">Id водителя</param>
+        /// <param name="id">Id машины которую редактируем</param>
+        /// <param name="patchDoc">Параметры для patch запроса</param>
+        /// <returns></returns>
         [HttpPatch("{id}")]
-        [ServiceFilter(typeof(ValidatePlaneForPilorExistsAttribute))]
-        public async Task<IActionResult> PartiallyUpdatePlaneForPilor(Guid pilotId, Guid id, [FromBody] JsonPatchDocument<PlaneForUpdateDto> patchDoc)
+        [ServiceFilter(typeof(ValidatePlaneForPilotExistsAttribute))]
+        public async Task<IActionResult> PartiallyUpdatePlaneForPilot(Guid driverId, Guid id, [FromBody] JsonPatchDocument<PlaneForUpdateDto> patchDoc)
         {
             if (patchDoc == null)
             {

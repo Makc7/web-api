@@ -19,9 +19,9 @@ namespace API_Solution.ActionFilters
         {
             var trackChanges = context.HttpContext.Request.Method.Equals("PUT");
             var id = (Guid)context.ActionArguments["id"];
-            var pilot = await _repository.Pilot.GetPilotAsync(id, trackChanges);
+            var driver = await _repository.Pilot.GetPilotAsync(id, trackChanges);
 
-            if (pilot == null)
+            if (driver == null)
             {
                 _logger.LogInfo($"Pilot with id: {id} doesn't exist in the database.");
 
@@ -29,7 +29,7 @@ namespace API_Solution.ActionFilters
             }
             else
             {
-                context.HttpContext.Items.Add("pilot", pilot);
+                context.HttpContext.Items.Add("driver", driver);
                 await next();
             }
         }

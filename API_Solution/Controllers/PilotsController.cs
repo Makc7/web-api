@@ -9,112 +9,150 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API_Solution.Controllers
 {
-    [Route("api/pilots")]
+    [ApiVersion("1.0")]
+    [Route("api/drivers")]
     [ApiController]
-    public class PilorsController : ControllerBase
+    [ApiExplorerSettings(GroupName = "v1")]
+
+    public class PilotsController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
-        public PilorsController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+        public PilotsController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Получает список всех водителей
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetPilors()
+        public async Task<IActionResult> GetPilots()
         {
-            var pilots = await _repository.Pilor.GetAllPilorsAsync(trackChanges: false);
-            var pilotsDto = _mapper.Map<IEnumerable<Pilor>>(pilots);
-            return Ok(pilotsDto);
+            var drivers = await _repository.Pilot.GetAllPilotsAsync(trackChanges: false);
+            var driversDto = _mapper.Map<IEnumerable<Pilot>>(drivers);
+            return Ok(driversDto);
         }
 
-        [HttpGet("{id}", Name = "PilorById")]
-        public async Task<IActionResult> GetPilorAsync(Guid id)
+        /// <summary>
+        /// Получает водителя по Id
+        /// </summary>
+        /// <param name="id">Id водителя</param>
+        /// <returns></returns>
+        [HttpGet("{id}", Name = "PilotById")]
+        public async Task<IActionResult> GetPilotAsync(Guid id)
         {
-            var pilot = await _repository.Pilor.GetPilorAsync(id, trackChanges: false);
-            if(pilot == null)
+            var driver = await _repository.Pilot.GetPilotAsync(id, trackChanges: false);
+            if(driver == null)
             {
-                _logger.LogInfo($"Pilor with id: {id} doesn't exist in the database.");
+                _logger.LogInfo($"Pilot with id: {id} doesn't exist in the database.");
                 return NotFound();
             }
-            var pilotDto = _mapper.Map<PilorDto>(pilot);
-            return Ok(pilotDto);
+            var driverDto = _mapper.Map<PilotDto>(driver);
+            return Ok(driverDto);
         }
 
+        /// <summary>
+        /// Создает водителя
+        /// </summary>
+        /// <param name="driver">Экземпляр нового водителя</param>
+        /// <returns></returns>
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> CreatePilorAsync([FromBody] PilorForCreatonDto pilot) 
+        public async Task<IActionResult> CreatePilotAsync([FromBody] PilotForCreatonDto driver) 
         {            
-            var pilotEntity = _mapper.Map<Pilor>(pilot);
-            _repository.Pilor.CreatePilor(pilotEntity);
+            var driverEntity = _mapper.Map<Pilot>(driver);
+            _repository.Pilot.CreatePilot(driverEntity);
             await _repository.SaveAsync();
-            var pilotToReturn = _mapper.Map<PilorDto>(pilotEntity);
-            return CreatedAtRoute("PilorById", new { id = pilotToReturn.Id }, pilotToReturn);
+            var driverToReturn = _mapper.Map<PilotDto>(driverEntity);
+            return CreatedAtRoute("PilotById", new { id = driverToReturn.Id }, driverToReturn);
         }
 
-        [HttpGet("collection/({ids})", Name = "PilorCollection")]
-        public async Task<IActionResult> GetPilorCollection(IEnumerable<Guid> ids) 
+        /// <summary>
+        /// Получает список водителей по их Id
+        /// </summary>
+        /// <param name="ids">Id водителей которых хотим получить</param>
+        /// <returns></returns>
+        [HttpGet("collection/({ids})", Name = "PilotCollection")]
+        public async Task<IActionResult> GetPilotCollection(IEnumerable<Guid> ids) 
         {
             if (ids == null)
             {
                 _logger.LogError("Parameter ids is null");
                 return BadRequest("Parameter ids is null");
             }
-            var pilotEntities = await _repository.Pilor.GetByIdsAsync(ids, trackChanges: true);
-            if (ids.Count() != pilotEntities.Count())
+            var driverEntities = await _repository.Pilot.GetByIdsAsync(ids, trackChanges: true);
+            if (ids.Count() != driverEntities.Count())
             {
                 _logger.LogError("Some ids are not valid in a collection");
                 return NotFound();
             }
-            var pilotsToReturn = _mapper.Map<IEnumerable<PilorDto>> (pilotEntities);
-            return Ok(pilotsToReturn);
+            var driversToReturn = _mapper.Map<IEnumerable<PilotDto>> (driverEntities);
+            return Ok(driversToReturn);
         }
 
+        /// <summary>
+        /// Создает список водителей
+        /// </summary>
+        /// <param name="driverCollection">Коллекция новых водителей</param>
+        /// <returns></returns>
         [HttpPost("collection")]
-        public async Task<IActionResult> CreatePilorCollection([ModelBinder (BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> pilotCollection)
+        public async Task<IActionResult> CreatePilotCollection([ModelBinder (BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> driverCollection)
         {
-            if (pilotCollection == null)
+            if (driverCollection == null)
             {
-                _logger.LogError("Pilor collection sent from client is null.");
-                return BadRequest("Pilor collection is null");
+                _logger.LogError("Pilot collection sent from client is null.");
+                return BadRequest("Pilot collection is null");
             }
-            var pilotEntitiees = _mapper.Map<IEnumerable<Pilor>>(pilotCollection);
-            foreach (var pilot in pilotEntitiees)
+            var driverEntitiees = _mapper.Map<IEnumerable<Pilot>>(driverCollection);
+            foreach (var driver in driverEntitiees)
             {
-                _repository.Pilor.CreatePilor(pilot);
+                _repository.Pilot.CreatePilot(driver);
             }
             await _repository.SaveAsync();
-            var pilotCollectionToReturn = _mapper.Map<IEnumerable<PilorDto>>(pilotEntitiees);
-            var ids = string.Join(",", pilotCollectionToReturn.Select(c => c.Id));
-            return CreatedAtRoute("PilorCollection", new { ids }, pilotCollectionToReturn);
+            var driverCollectionToReturn = _mapper.Map<IEnumerable<PilotDto>>(driverEntitiees);
+            var ids = string.Join(",", driverCollectionToReturn.Select(c => c.Id));
+            return CreatedAtRoute("PilotCollection", new { ids }, driverCollectionToReturn);
         }
 
+        /// <summary>
+        /// Удаляет водителя по Id
+        /// </summary>
+        /// <param name="id">Id водителя которого удаляем</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        [ServiceFilter(typeof(ValidatePilorExistsAtribute))]
-        public async Task<IActionResult> DeletePilor(Guid id)
+        [ServiceFilter(typeof(ValidatePilotExistsAtribute))]
+        public async Task<IActionResult> DeletePilot(Guid id)
         {
-            var pilot = HttpContext.Items["pilot"] as Pilor;
-            _repository.Pilor.DeletePilor(pilot);
+            var driver = HttpContext.Items["driver"] as Pilot;
+            _repository.Pilot.DeletePilot(driver);
             await _repository.SaveAsync();
             return NoContent();
         }
 
+        /// <summary>
+        /// Редактирует водителя по Id
+        /// </summary>
+        /// <param name="id">Id водителя которого редактируем</param>
+        /// <param name="driver">Экземпляр редактированного водителя</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        [ServiceFilter(typeof(ValidatePilorExistsAtribute))]
-        public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] PilorForUpdateDto pilot)
+        [ServiceFilter(typeof(ValidatePilotExistsAtribute))]
+        public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] PilotForUpdateDto driver)
         {            
-            var pilotEntity = HttpContext.Items["pilot"] as Pilor;
-            _mapper.Map(pilot, pilotEntity);
+            var driverEntity = HttpContext.Items["driver"] as Pilot;
+            _mapper.Map(driver, driverEntity);
             await _repository.SaveAsync();
             return NoContent();
         }
 
         [HttpOptions]
-        public IActionResult GetPilorsOptions()
+        public IActionResult GetPilotsOptions()
         {
             Response.Headers.Add("Allow", "GET, OPTIONS, POST");
             return Ok();

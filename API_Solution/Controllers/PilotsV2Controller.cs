@@ -4,20 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API_Solution.Controllers
 {
-    [Route("api/pilots")]
+    [ApiVersion("2.0")]
+    [Route("api/drivers")]
     [ApiController]
-    public class PilorsV2Controller : ControllerBase
+    [ApiExplorerSettings(GroupName = "v2")]
+
+    public class PilotsV2Controller : ControllerBase
     {
         private readonly IRepositoryManager _repository;
-        public PilorsV2Controller(IRepositoryManager repository)
+        public PilotsV2Controller(IRepositoryManager repository)
         {
             _repository = repository;
         }
         [HttpGet]
-        public async Task<IActionResult> GetPilors()
+        public async Task<IActionResult> GetPilots()
         {
-            var pilots = await _repository.Pilor.GetAllPilorsAsync(trackChanges: false);
-            return Ok(pilots);
+            var drivers = await _repository.Pilot.GetAllPilotsAsync(trackChanges: false);
+            return Ok(drivers);
         }
     }
 }
