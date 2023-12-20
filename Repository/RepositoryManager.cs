@@ -8,8 +8,8 @@ namespace Repository
         private RepositoryContext _repositoryContext;
         private ICompanyRepository _companyRepository;
         private IEmployeeRepository _employeeRepository;
-        private ICarRepository _carRepository;
-        private IDriverRepository _driverRepository;
+        private IPlaneRepository _planeRepository;
+        private IPiotRepository _pilotRepository;
         public RepositoryManager(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -32,22 +32,22 @@ namespace Repository
                 return _employeeRepository;
             }
         }
-        public ICarRepository Car
+        public IPlaneRepository Plane
         {
             get
             {
-                if (_carRepository == null)
-                    _carRepository = new CarRepository(_repositoryContext);
-                return _carRepository;
+                if (_planeRepository == null)
+                    _planeRepository = new PlaneRepository(_repositoryContext);
+                return _planeRepository;
             }
         }
-        public IDriverRepository Driver
+        public IPiotRepository Piot
         {
             get
             {
-                if (_driverRepository == null)
-                    _driverRepository = new DriverRepository(_repositoryContext);
-                return _driverRepository;
+                if (_pilotRepository == null)
+                    _pilotRepository = new PiotRepository(_repositoryContext);
+                return _pilotRepository;
             }
         }
         public Task SaveAsync() => _repositoryContext.SaveChangesAsync();

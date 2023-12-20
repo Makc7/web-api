@@ -1,8 +1,7 @@
 ﻿namespace Entities.DataTransferObjects
 {
-    public class PlaneForUpdateDto
+    public class PlaneForUpdateDto: PlaneForManipulationDto
     {
-        public string Brend { get; set; }
-        public string Model { get; set; }
+
     }
 }

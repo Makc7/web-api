@@ -1,6 +1,6 @@
 ﻿namespace Entities.DataTransferObjects
 {
-    public class PilotDto
+    public class PiotDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
