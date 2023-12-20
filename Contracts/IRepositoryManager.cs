@@ -4,8 +4,8 @@
     {
         ICompanyRepository Company { get; }
         IEmployeeRepository Employee { get; }
-        IPlaneRepository Plane { get; }
-        IPilotRepository Pilot { get; }
+        ICarRepository Car { get; }
+        IDriverRepository Driver { get; }
         void Save();
     }
 }
