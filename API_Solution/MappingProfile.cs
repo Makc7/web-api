@@ -10,18 +10,18 @@ namespace API_Solution
         {
             CreateMap<Company, CompanyDto>().ForMember(c => c.FullAddress, opt => opt.MapFrom(x => string.Join(' ', x.Address, x.Country)));
             CreateMap<Employee, EmployeeDto>();
-            CreateMap<Car, CarDto>();
-            CreateMap<Driver, DriverDto>();
+            CreateMap<Plane, PlaneDto>();
+            CreateMap<Pilor, PilorDto>();
             CreateMap<CompanyForCreationDto, Company>();
             CreateMap<EmployeeForCreationDto, Employee>();
-            CreateMap<DriverForCreatonDto, Driver>();
-            CreateMap<CarForCreationDto, Car>();
+            CreateMap<PilorForCreatonDto, Pilor>();
+            CreateMap<PlaneForCreationDto, Plane>();
             CreateMap<EmployeeForUpdateDto, Employee>();
             CreateMap<CompanyForUpdateDto, Company>();
-            CreateMap<CarForUpdateDto, Car>();
-            CreateMap<DriverForUpdateDto, Driver>();
+            CreateMap<PlaneForUpdateDto, Plane>();
+            CreateMap<PilorForUpdateDto, Pilor>();
             CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();
-            CreateMap<CarForUpdateDto, Car>().ReverseMap();
+            CreateMap<PlaneForUpdateDto, Plane>().ReverseMap();
         }
     }
 }

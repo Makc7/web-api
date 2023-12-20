@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace API_Solution.ActionFilters
 {
-    public class ValidatePiotExistsAtribute: IAsyncActionFilter
+    public class ValidatePilorExistsAtribute: IAsyncActionFilter
     {
         private readonly ILoggerManager _logger;
         private readonly IRepositoryManager _repository;
 
-        public ValidatePiotExistsAtribute(ILoggerManager logger, IRepositoryManager repository)
+        public ValidatePilorExistsAtribute(ILoggerManager logger, IRepositoryManager repository)
         {
             _logger = logger;
             _repository = repository;
@@ -19,11 +19,11 @@ namespace API_Solution.ActionFilters
         {
             var trackChanges = context.HttpContext.Request.Method.Equals("PUT");
             var id = (Guid)context.ActionArguments["id"];
-            var pilot = await _repository.Piot.GetPiotAsync(id, trackChanges);
+            var pilot = await _repository.Pilor.GetPilorAsync(id, trackChanges);
 
             if (pilot == null)
             {
-                _logger.LogInfo($"Piot with id: {id} doesn't exist in the database.");
+                _logger.LogInfo($"Pilor with id: {id} doesn't exist in the database.");
 
                 context.Result = new NotFoundResult();
             }

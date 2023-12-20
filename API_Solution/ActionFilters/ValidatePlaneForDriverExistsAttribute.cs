@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace API_Solution.ActionFilters
 {
-    public class ValidatePlaneForPiotExistsAttribute: IAsyncActionFilter
+    public class ValidatePlaneForPilorExistsAttribute: IAsyncActionFilter
     {
         private readonly ILoggerManager _logger;
         private readonly IRepositoryManager _repository;
 
-        public ValidatePlaneForPiotExistsAttribute(ILoggerManager logger, IRepositoryManager repository)
+        public ValidatePlaneForPilorExistsAttribute(ILoggerManager logger, IRepositoryManager repository)
         {
             _logger = logger;
             _repository = repository;
@@ -20,7 +20,7 @@ namespace API_Solution.ActionFilters
             var method = context.HttpContext.Request.Method;
             var trackChanges = (method.Equals("PUT") || method.Equals("PATCH")) ? true : false;
             var pilotId = (Guid)context.ActionArguments["pilotId"];
-            var pilot = await _repository.Piot.GetPiotAsync(pilotId, false);
+            var pilot = await _repository.Pilor.GetPilorAsync(pilotId, false);
             if (pilot == null)
             {
                 _logger.LogInfo($"Company with id: {pilotId} doesn't exist in the database.");
@@ -28,15 +28,15 @@ namespace API_Solution.ActionFilters
                 context.Result = new NotFoundResult();
             }
             var id = (Guid)context.ActionArguments["id"];
-            var car = await _repository.Plane.GetPlaneByIdAsync(pilotId, id, trackChanges);
-            if (car == null)
+            var plane = await _repository.Plane.GetPlaneByIdAsync(pilotId, id, trackChanges);
+            if (plane == null)
             {
                 _logger.LogInfo($"Plane with id: {id} doesn't exist in the database.");
                 context.Result = new NotFoundResult();
             }
             else
             {
-                context.HttpContext.Items.Add("car", car);
+                context.HttpContext.Items.Add("plane", plane);
                 await next();
             }
         }

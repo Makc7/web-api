@@ -4,8 +4,8 @@
     {
         ICompanyRepository Company { get; }
         IEmployeeRepository Employee { get; }
-        ICarRepository Car { get; }
-        IDriverRepository Driver { get; }
+        IPlaneRepository Plane { get; }
+        IPilorRepository Pilor { get; }
         public Task SaveAsync();
     }
 }

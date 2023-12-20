@@ -44,12 +44,12 @@ public class Startup
         });
         services.AddScoped<ValidationFilterAttribute>();
         services.AddScoped<ValidateCompanyExistsAttribute>();
-        services.AddScoped<ValidateDriverExistsAtribute>();
+        services.AddScoped<ValidatePilorExistsAtribute>();
         services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
-        services.AddScoped<ValidateCarForDriverExistsAttribute>();
+        services.AddScoped<ValidatePlaneForPilorExistsAttribute>();
         services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
-        services.AddScoped<IDataShaper<CarDto>, DataShaper<CarDto>>();
-
+        services.AddScoped<IDataShaper<PlaneDto>, DataShaper<PlaneDto>>();
+        services.ConfigureVersioning();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

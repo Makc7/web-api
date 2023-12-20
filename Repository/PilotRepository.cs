@@ -1,19 +1,21 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    public class PilotRepository: RepositoryBase<Pilot>, IPilotRepository
+    public class PilorRepository: RepositoryBase<Pilor>, IPilorRepository
     {
-        public PilotRepository(RepositoryContext repositoryContext)
+        public PilorRepository(RepositoryContext repositoryContext)
         : base(repositoryContext)        
         {
         }
 
-        public IEnumerable<Pilot> GetAllPilots(bool trackChanges) => FindAll(trackChanges).OrderBy(c => c.Name).ToList();
-        public Pilot GetPilot(Guid id, bool trackChanges) => FindByCondition(c => c.Id.Equals(id), trackChanges).SingleOrDefault();
-        public void CreatePilot(Pilot driver) => Create(driver);
-        public IEnumerable<Pilot> GetByIds(IEnumerable<Guid> ids, bool trackChanges) => FindByCondition(x => ids.Contains(x.Id), trackChanges).ToList();
+        public async Task<IEnumerable<Pilor>> GetAllPilorsAsync(bool trackChanges) => await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
+        public async Task<Pilor> GetPilorAsync(Guid id, bool trackChanges) => await FindByCondition(c => c.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
+        public void CreatePilor(Pilor pilot) => Create(pilot);
+        public async Task<IEnumerable<Pilor>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges) => await FindByCondition(x => ids.Contains(x.Id), trackChanges).ToListAsync();
+        public void DeletePilor(Pilor pilot) => Delete(pilot);
     }
 }
