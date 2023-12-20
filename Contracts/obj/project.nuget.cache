@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fLjAuWsFkSOzIH/I+Z2Ab/t5xg2ZRNrHRK/Z7axu+DBfyCsUlcfbccZP0QJ03moMmjq33QwaVHwend3ymHKNkg==",
+  "dgSpecHash": "7vI3P03dqJ4foRLeOI9VLA8qc3m4gSD5tKL87aZtXI4B1nHBk7gUIRsPuRCsLggBBFVosZRo3sRJFSuGq6Vuwg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Contracts\\Contracts.csproj",
+  "projectFilePath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Contracts\\Contracts.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxim\\.nuget\\packages\\microsoft.csharp\\4.3.0\\microsoft.csharp.4.3.0.nupkg.sha512",
     "C:\\Users\\maxim\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.11\\microsoft.entityframeworkcore.7.0.11.nupkg.sha512",

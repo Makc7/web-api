@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Contracts\\Contracts.csproj": {}
+    "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Contracts\\Contracts.csproj": {}
   },
   "projects": {
-    "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Contracts\\Contracts.csproj": {
+    "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Contracts\\Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Contracts\\Contracts.csproj",
+        "projectUniqueName": "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Contracts\\Contracts.csproj",
         "projectName": "Contracts",
-        "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Contracts\\Contracts.csproj",
+        "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Contracts\\Contracts.csproj",
         "packagesPath": "C:\\Users\\maxim\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Contracts\\obj\\",
+        "outputPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\maxim\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Entities\\Entities.csproj"
+              "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Entities\\Entities.csproj"
               }
             }
           }
@@ -63,14 +63,14 @@
         }
       }
     },
-    "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Entities\\Entities.csproj": {
+    "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Entities\\Entities.csproj",
+        "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Entities\\Entities.csproj",
         "packagesPath": "C:\\Users\\maxim\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab8\\Entities\\obj\\",
+        "outputPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab9\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\maxim\\AppData\\Roaming\\NuGet\\NuGet.Config",

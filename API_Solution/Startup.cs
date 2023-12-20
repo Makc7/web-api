@@ -1,9 +1,11 @@
 ﻿using API_Solution.ActionFilters;
 using API_Solution.Extensions;
 using Contracts;
+using Entities.DataTransferObjects;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
+using Repository.DataShaping;
 
 namespace ShopApi;
 
@@ -42,9 +44,11 @@ public class Startup
         });
         services.AddScoped<ValidationFilterAttribute>();
         services.AddScoped<ValidateCompanyExistsAttribute>();
-        services.AddScoped<ValidatePiotExistsAtribute>();
+        services.AddScoped<ValidateDriverExistsAtribute>();
         services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
-        services.AddScoped<ValidatePlaneForPiotExistsAttribute>();
+        services.AddScoped<ValidateCarForDriverExistsAttribute>();
+        services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
+        services.AddScoped<IDataShaper<CarDto>, DataShaper<CarDto>>();
 
     }
 
