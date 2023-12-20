@@ -16,6 +16,12 @@ namespace API_Solution
             CreateMap<EmployeeForCreationDto, Employee>();
             CreateMap<PilotForCreatonDto, Pilot>();
             CreateMap<PlaneForCreationDto, Plane>();
+            CreateMap<EmployeeForUpdateDto, Employee>();
+            CreateMap<CompanyForUpdateDto, Company>();
+            CreateMap<PlaneForUpdateDto, Plane>();
+            CreateMap<PilotForUpdateDto, Pilot>();
+            CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();
+            CreateMap<PlaneForUpdateDto, Plane>().ReverseMap();
         }
     }
 }

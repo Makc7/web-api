@@ -6601,11 +6601,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\maxim\\Desktop\\API_Solution-lab5\\LoggerService\\LoggerService.csproj",
+      "projectUniqueName": "C:\\Users\\maxim\\Desktop\\API_Solution-lab6\\LoggerService\\LoggerService.csproj",
       "projectName": "LoggerService",
-      "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab5\\LoggerService\\LoggerService.csproj",
+      "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab6\\LoggerService\\LoggerService.csproj",
       "packagesPath": "C:\\Users\\maxim\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab5\\LoggerService\\obj\\",
+      "outputPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab6\\LoggerService\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\maxim\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6622,8 +6622,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\maxim\\Desktop\\API_Solution-lab5\\Contracts\\Contracts.csproj": {
-              "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab5\\Contracts\\Contracts.csproj"
+            "C:\\Users\\maxim\\Desktop\\API_Solution-lab6\\Contracts\\Contracts.csproj": {
+              "projectPath": "C:\\Users\\maxim\\Desktop\\API_Solution-lab6\\Contracts\\Contracts.csproj"
             }
           }
         }
